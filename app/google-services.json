@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "831457234000",
+    "firebase_url": "https://miracosta-lpro.firebaseio.com",
+    "project_id": "miracosta-lpro",
+    "storage_bucket": "miracosta-lpro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831457234000:android:17553737de304755",
+        "android_client_info": {
+          "package_name": "com.miracosta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831457234000-1542otmvt6dk5c8ijipf8gp6tcguo3lt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miracosta",
+            "certificate_hash": "3275d38ef9d535dcf1d84dd75b2b987e490483eb"
+          }
+        },
+        {
+          "client_id": "831457234000-ujsmib6mv4i037l5sa1a5c9kulh6o55g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqUcOBPVRGnGXQS4ZRRe_4_YrqZLyxHAo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831457234000-ujsmib6mv4i037l5sa1a5c9kulh6o55g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
