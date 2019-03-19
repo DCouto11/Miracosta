@@ -9,14 +9,14 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SesionConfirmada extends AppCompatActivity {
-    private Button btn_cerrar;
+    Button btn_cerrar;
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sesion_confirmada);
 
-        btn_cerrar = (Button) findViewById(R.id.btn_cerrarsesion);
+        btn_cerrar = findViewById(R.id.btn_cerrarsesion);
         //Usuario autenticado
         mAuth = FirebaseAuth.getInstance();
 

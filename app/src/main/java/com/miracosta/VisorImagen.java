@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,22 +16,22 @@ public class VisorImagen extends Activity {
 
     ImageView imagen;
     Button visto;
-    EditText titulo,cuerpo;
+    TextView titulo,cuerpo;
 
     public void onResume(){
         super.onResume();
         setContentView(R.layout.activity_visor_imagen);
 
-        visto = (Button) findViewById(R.id.btn_visto);
-        imagen = (ImageView) findViewById(R.id.img_foto);
-        titulo = (EditText) findViewById(R.id.txt_title);
-        cuerpo = (EditText) findViewById(R.id.txt_body);
+        visto = findViewById(R.id.btn_visto);
+        imagen = findViewById(R.id.img_foto);
+        titulo = findViewById(R.id.txt_title);
+        cuerpo = findViewById(R.id.txt_body);
 
         String urlImagen = getIntent().getExtras().getString("imagenCaso");
         String txtTitulo = getIntent().getExtras().getString("tituloCaso");
         String txtCuerpo = getIntent().getExtras().getString("bodyCaso");
 
-        double token=0;
+        double token;
         token=Math.random();
 
         Picasso.with(getApplicationContext()).invalidate("");
