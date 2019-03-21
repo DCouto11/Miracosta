@@ -36,7 +36,7 @@ public class VisorImagen extends Activity {
 
         Picasso.with(getApplicationContext()).invalidate("");
         Picasso.with(this)
-                .load(urlImagen+"?"+token)
+                .load(urlImagen)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .networkPolicy(NetworkPolicy.NO_CACHE)
                 .into(imagen);
@@ -51,7 +51,6 @@ public class VisorImagen extends Activity {
                 getIntent().removeExtra("tituloCaso");
                 getIntent().removeExtra("bodyCaso");
                 getIntent().removeExtra("imagenCaso");
-                finish();
             }
         });
     }
