@@ -20,6 +20,14 @@ public class SesionConfirmada extends AppCompatActivity {
         //Usuario autenticado
         mAuth = FirebaseAuth.getInstance();
 
+        findViewById(R.id.btn_suscripciones).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SesionConfirmada.this, Suscripciones.class));
+                finish();
+            }
+        });
+
         btn_cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

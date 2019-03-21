@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         mInicioSesion = findViewById(R.id.btn_login);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseMessaging.getInstance().subscribeToTopic("samil1");
         mInicioSesion.setOnClickListener(new View.OnClickListener() {
 
             @Override

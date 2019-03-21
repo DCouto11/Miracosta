@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Miracosta</string>
     <string name="default_notification_channel_id" translatable="false">default_channel</string>
+
+    <array name="topics">
+        <item>samil1</item>
+        <item>samil2</item>
+        <item>samil3</item>
+        <item>vao1</item>
+        <item>vao2</item>
+        <item>america1</item>
+        <item>america2</item>
+    </array>
 </resources>
