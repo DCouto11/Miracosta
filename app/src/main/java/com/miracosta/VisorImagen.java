@@ -31,9 +31,6 @@ public class VisorImagen extends Activity {
         String txtTitulo = getIntent().getExtras().getString("tituloCaso");
         String txtCuerpo = getIntent().getExtras().getString("bodyCaso");
 
-        double token;
-        token=Math.random();
-
         Picasso.with(getApplicationContext()).invalidate("");
         Picasso.with(this)
                 .load(urlImagen)
@@ -48,9 +45,6 @@ public class VisorImagen extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(VisorImagen.this, MainActivity.class));
-                getIntent().removeExtra("tituloCaso");
-                getIntent().removeExtra("bodyCaso");
-                getIntent().removeExtra("imagenCaso");
             }
         });
     }

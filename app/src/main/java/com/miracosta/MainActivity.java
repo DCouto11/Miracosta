@@ -16,16 +16,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG =" " ;
     EditText mCorreo,mClave;
     Button mInicioSesion;
-
     //Variables Firebase
     private FirebaseAuth mAuth;
-
+    String camarasIn="";
+    ArrayList<String> suscrito = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
