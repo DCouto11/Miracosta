@@ -2,7 +2,7 @@ package com.miracosta;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+//import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 public class Suscripciones extends AppCompatActivity {
 
-    private static final String TAG = " ";
     ArrayList<String> suscripciones = new ArrayList<>();
     Spinner spinnerPlayas, spinnerCamaras;
     ImageView imagenPlaya;
@@ -37,7 +36,6 @@ public class Suscripciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suscripciones);
         final Context context = this;
-        SharedPreferences sharedPre = getSharedPreferences("camaras", context.MODE_PRIVATE);
         final String[] item = new String[1];
         item[0] = "";
         spinnerPlayas = findViewById(R.id.spin_playas);
@@ -59,10 +57,9 @@ public class Suscripciones extends AppCompatActivity {
                 String[] camaras = getResources().getStringArray(R.array.camaras);
                 String[] playas = getResources().getStringArray(R.array.playas);
                 item[0] = playas[position];
-                String imagenMapa = item[0];
                 /*
                 *Carga de imágenes en estático.
-                *
+                *String imagenMapa = item[0];
                 *Context context = imagenPlaya.getContext();
                 *int id1 = context.getResources().getIdentifier(imagenMapa, "drawable", context.getPackageName());
                 *imagenPlaya.setImageResource(id1);
@@ -87,7 +84,7 @@ public class Suscripciones extends AppCompatActivity {
                         elegidas.add(e);
                     }
                 }
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(Suscripciones.this, R.layout.support_simple_spinner_dropdown_item,elegidas);
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Suscripciones.this, R.layout.support_simple_spinner_dropdown_item,elegidas);
 
                 spinnerCamaras.setAdapter(adapter1);
             }
@@ -139,10 +136,11 @@ public class Suscripciones extends AppCompatActivity {
                     lista += a + " ";
                 }
                 Intent i = new Intent(Suscripciones.this, MainActivity.class);
-                SharedPreferences suscripciones = getPreferences(context.MODE_PRIVATE);
+                /*SharedPreferences suscripciones = getPreferences(context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = suscripciones.edit();
                 editor.putString("MiDato", lista);
-                editor.commit();
+                editor.apply();
+                */
                 startActivity(i);
                 finish();
             }

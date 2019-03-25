@@ -9,8 +9,6 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
-
 public class SesionConfirmada extends AppCompatActivity {
     Button btn_cerrar;
     FirebaseAuth mAuth;

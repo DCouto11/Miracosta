@@ -17,16 +17,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG =" " ;
     EditText mCorreo,mClave;
     Button mInicioSesion;
-    //Variables Firebase
     private FirebaseAuth mAuth;
-    String camarasIn="";
-    ArrayList<String> suscrito = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,15 +63,11 @@ public class MainActivity extends AppCompatActivity {
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
                                     Intent intent = new Intent(MainActivity.this,MainActivity.class);
                                     startActivity(intent);
-                                    Toast.makeText(MainActivity.this, task.getException().toString().trim(),
-                                            Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "Sesión fallida",Toast.LENGTH_SHORT).show();
                                     updateUI(null);
                                 }
-
-                                // ...
                             }
                         });
             }
