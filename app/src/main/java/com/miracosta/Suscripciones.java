@@ -3,6 +3,7 @@ package com.miracosta;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -22,6 +30,8 @@ public class Suscripciones extends AppCompatActivity {
     ArrayList<String> suscripciones = new ArrayList<>();
     Spinner spinnerPlayas, spinnerCamaras;
     ImageView imagenPlaya;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +60,27 @@ public class Suscripciones extends AppCompatActivity {
                 String[] playas = getResources().getStringArray(R.array.playas);
                 item[0] = playas[position];
                 String imagenMapa = item[0];
-                Context context = imagenPlaya.getContext();
-                int id1 = context.getResources().getIdentifier(imagenMapa, "drawable", context.getPackageName());
-                imagenPlaya.setImageResource(id1);
+                /*
+                *Carga de imágenes en estático.
+                *
+                *Context context = imagenPlaya.getContext();
+                *int id1 = context.getResources().getIdentifier(imagenMapa, "drawable", context.getPackageName());
+                *imagenPlaya.setImageResource(id1);
+                *
+                */
 
-
+                //Carga de imágenes via BBDD
+                StorageReference islandRef = storageRef.child("playas/"+item[0]+".png");
+                islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.with(getApplicationContext())
+                                .load(uri)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE)
+                                .into(imagenPlaya);
+                    }
+                });
                 ArrayList<String> elegidas = new ArrayList<>();
                 for (String e : camaras) {
                     if (e.contains(item[0])){

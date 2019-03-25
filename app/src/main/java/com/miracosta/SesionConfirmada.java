@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.ArrayList;
 
 public class SesionConfirmada extends AppCompatActivity {
     Button btn_cerrar;
@@ -29,9 +32,16 @@ public class SesionConfirmada extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
+                logOff();
                 startActivity(new Intent(SesionConfirmada.this, MainActivity.class));
                 finish();
             }
         });
+    }
+    private void logOff(){
+        String[] camaras = getResources().getStringArray(R.array.camaras);
+        for(String a : camaras){
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(a);
+        }
     }
 }
