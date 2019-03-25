@@ -2,6 +2,7 @@ package com.miracosta;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ public class VisorImagen extends Activity {
     ImageView imagen;
     Button visto;
     TextView titulo,cuerpo;
+    Button FakePositive, NotPerson, Call;
 
     public void onResume(){
         super.onResume();
@@ -26,6 +28,9 @@ public class VisorImagen extends Activity {
         imagen = findViewById(R.id.img_foto);
         titulo = findViewById(R.id.txt_title);
         cuerpo = findViewById(R.id.txt_body);
+        FakePositive = findViewById(R.id.btn_FP);
+        NotPerson = findViewById(R.id.btn_notPerson);
+        Call = findViewById(R.id.btn_112);
 
         String urlImagen = getIntent().getExtras().getString("imagenCaso");
         String txtTitulo = getIntent().getExtras().getString("tituloCaso");
@@ -45,6 +50,15 @@ public class VisorImagen extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(VisorImagen.this, MainActivity.class));
+            }
+        });
+
+        Call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri num = Uri.parse("tel:112");
+                Intent i = new Intent(Intent.ACTION_DIAL, num);
+                startActivity(i);
             }
         });
     }
