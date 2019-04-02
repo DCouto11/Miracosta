@@ -1,13 +1,19 @@
 package com.miracosta;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.Map;
 
 public class SesionConfirmada extends AppCompatActivity {
     Button btn_cerrar;
@@ -17,6 +23,16 @@ public class SesionConfirmada extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sesion_confirmada);
         btn_cerrar = findViewById(R.id.btn_cerrarsesion);
+
+        SharedPreferences preferences = getSharedPreferences("camaras", Context.MODE_PRIVATE);
+        Map<String, ?> predef = preferences.getAll();
+        String TAG="Miracosta";
+        Log.d(TAG,"Numero de cámaras en suscripción:  "+predef.size());
+        String altas="";
+        for (String key : predef.keySet()) {
+            altas = altas.concat(" "+key);
+        }
+        Toast.makeText(getApplicationContext(),"Suscrito a "+altas,Toast.LENGTH_LONG).show();
         //Usuario autenticado
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.btn_suscripciones).setOnClickListener(new View.OnClickListener() {
