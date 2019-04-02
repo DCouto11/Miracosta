@@ -24,7 +24,7 @@ public class SesionConfirmada extends AppCompatActivity {
         setContentView(R.layout.activity_sesion_confirmada);
         btn_cerrar = findViewById(R.id.btn_cerrarsesion);
 
-        SharedPreferences preferences = getSharedPreferences("camaras", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("altas", Context.MODE_PRIVATE);
         Map<String, ?> predef = preferences.getAll();
         String TAG="Miracosta";
         Log.d(TAG,"Numero de cámaras en suscripción:  "+predef.size());

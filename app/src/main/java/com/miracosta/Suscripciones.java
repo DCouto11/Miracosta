@@ -80,7 +80,7 @@ public class Suscripciones extends AppCompatActivity {
             public void onClick(View v) {
                 String topicAltas = spinnerCamaras.getSelectedItem().toString();
                 FirebaseMessaging.getInstance().subscribeToTopic(topicAltas);
-                SharedPreferences preferences = getSharedPreferences("camaras",Context.MODE_PRIVATE);
+                SharedPreferences preferences = getSharedPreferences("altas",Context.MODE_PRIVATE);
                 SharedPreferences.Editor Obj_Editor = preferences.edit();
                 Obj_Editor.putString(topicAltas,"1");
                 Obj_Editor.apply();
@@ -94,7 +94,7 @@ public class Suscripciones extends AppCompatActivity {
             public void onClick(View v) {
                 String topicBajas = spinnerCamaras.getSelectedItem().toString();
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(topicBajas);
-                SharedPreferences preferences = getSharedPreferences("camaras", Context.MODE_PRIVATE);
+                SharedPreferences preferences = getSharedPreferences("altas", Context.MODE_PRIVATE);
                 SharedPreferences.Editor Obj_Editor = preferences.edit();
                 Obj_Editor.remove(topicBajas);
                 Obj_Editor.apply();
