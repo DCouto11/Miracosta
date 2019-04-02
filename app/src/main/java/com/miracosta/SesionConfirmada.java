@@ -32,7 +32,8 @@ public class SesionConfirmada extends AppCompatActivity {
         for (String key : predef.keySet()) {
             altas = altas.concat(" "+key);
         }
-        Toast.makeText(getApplicationContext(),"Suscrito a "+altas,Toast.LENGTH_LONG).show();
+        if (predef.size()>0)
+            Toast.makeText(getApplicationContext(),"Suscrito a "+altas,Toast.LENGTH_LONG).show();
         //Usuario autenticado
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.btn_suscripciones).setOnClickListener(new View.OnClickListener() {

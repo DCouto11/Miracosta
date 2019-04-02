@@ -60,7 +60,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         notificationBuilder
-                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(image)
                 .setStyle(new NotificationCompat.BigPictureStyle()
                         .bigPicture(image))
@@ -113,7 +113,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         notificationBuilder
-                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setColor(rgb(255,160,0))
                 .setContentTitle(title)
                 .setContentText(body)
