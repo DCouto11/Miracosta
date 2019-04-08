@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class Suscripciones extends AppCompatActivity {
@@ -60,9 +61,7 @@ public class Suscripciones extends AppCompatActivity {
         playas = playaS.trim().split(" ");
 
         ArrayList<String> spinner1 = new ArrayList<>();
-        for (String e : playas) {
-            spinner1.add(e);
-        }
+        spinner1.addAll(Arrays.asList(playas));
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Suscripciones.this, R.layout.support_simple_spinner_dropdown_item,spinner1);
         spinnerPlayas.setAdapter(adapter1);
 

@@ -76,7 +76,7 @@ public class VisorImagen extends Activity {
         swapImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(vista==true){
+                if(vista){
                     StorageReference islandRef = storageRef.child("playas/"+sector_camara+".png");
                     islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override

@@ -1,30 +1,4 @@
 <resources>
     <string name="app_name">Miracosta</string>
     <string name="default_notification_channel_id" translatable="false">default_channel</string>
-
-    <array name="playas">
-        <item>samil</item>
-        <item>vao</item>
-        <item>america</item>
-    </array>
-    <array name="camaras">
-        <item>samil1</item>
-        <item>samil2</item>
-        <item>samil3</item>
-        <item>samil4</item>
-        <item>samil5</item>
-        <item>samil6</item>
-        <item>vao1</item>
-        <item>vao2</item>
-        <item>vao3</item>
-        <item>vao4</item>
-        <item>vao5</item>
-        <item>vao6</item>
-        <item>america1</item>
-        <item>america2</item>
-        <item>america3</item>
-        <item>america4</item>
-        <item>america5</item>
-        <item>america6</item>
-    </array>
 </resources>
