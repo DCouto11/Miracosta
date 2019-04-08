@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Suscripciones extends AppCompatActivity {
     private static final String TAG = "Miracosta";
@@ -31,6 +32,7 @@ public class Suscripciones extends AppCompatActivity {
     ImageView imagenPlaya;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
+    String[] camaras, playas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +42,33 @@ public class Suscripciones extends AppCompatActivity {
         spinnerPlayas = findViewById(R.id.spin_playas);
         spinnerCamaras = findViewById(R.id.spin_camaras);
         imagenPlaya = findViewById(R.id.img_playas);
+        SharedPreferences prefPlayas = getSharedPreferences("playas", Context.MODE_PRIVATE);
+        SharedPreferences prefCamaras = getSharedPreferences("camaras", Context.MODE_PRIVATE);
+        Map<String, ?> pPlayas = prefPlayas.getAll();
+        Map<String, ?> pCamaras = prefCamaras.getAll();
+        Log.d(TAG,"Numero de playas en suscripción:  "+pPlayas.size());
+        Log.d(TAG,"Numero de cámaras en suscripción:  "+pCamaras.size());
+        String playaS="";
+        for (String key : pPlayas.keySet()) {
+            playaS = playaS.concat(key+" ");
+        }
+        String camaraS="";
+        for (String key : pCamaras.keySet()) {
+            camaraS = camaraS.concat(key+" ");
+        }
+        camaras = camaraS.trim().split(" ");
+        playas = playaS.trim().split(" ");
 
+        ArrayList<String> spinner1 = new ArrayList<>();
+        for (String e : playas) {
+            spinner1.add(e);
+        }
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Suscripciones.this, R.layout.support_simple_spinner_dropdown_item,spinner1);
+        spinnerPlayas.setAdapter(adapter1);
 
         spinnerPlayas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String[] camaras = getResources().getStringArray(R.array.camaras);
-                String[] playas = getResources().getStringArray(R.array.playas);
                 item[0] = playas[position];
                 StorageReference islandRef = storageRef.child("playas/"+item[0]+".png");
                 islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
