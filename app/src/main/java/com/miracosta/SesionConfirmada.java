@@ -65,15 +65,16 @@ public class SesionConfirmada extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 actualizar();
-                Toast.makeText(getApplicationContext(),"Actualización completa",Toast.LENGTH_LONG).show();
             }
         });
     }
     private void logOff(){
-        String[] camaras = getResources().getStringArray(R.array.camaras);
-        for(String a : camaras){
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(a);
+        SharedPreferences preferences = getSharedPreferences("altas", Context.MODE_PRIVATE);
+        Map<String, ?> predef = preferences.getAll();
+        for (String key : predef.keySet()) {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(key);
         }
+
     }
     public void actualizar(){
         //Actualizar playas y camaras
@@ -81,6 +82,10 @@ public class SesionConfirmada extends AppCompatActivity {
         SharedPreferences prefCamaras = getSharedPreferences("camaras", Context.MODE_PRIVATE);
         final SharedPreferences.Editor EditorPlayas = prefPlayas.edit();
         final SharedPreferences.Editor EditorCamaras = prefCamaras.edit();
+        EditorPlayas.clear();
+        EditorPlayas.apply();
+        EditorCamaras.clear();
+        EditorCamaras.apply();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("camaras")
                 .get()
@@ -105,6 +110,7 @@ public class SesionConfirmada extends AppCompatActivity {
                 });
         //Actualizar fotos de playas
         //Actualizar fotos de sectores
+        Toast.makeText(getApplicationContext(),"Actualización completa",Toast.LENGTH_LONG).show();
     }
 
 
