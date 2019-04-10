@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 public class Suscripciones extends AppCompatActivity {
@@ -47,8 +48,8 @@ public class Suscripciones extends AppCompatActivity {
         SharedPreferences prefCamaras = getSharedPreferences("camaras", Context.MODE_PRIVATE);
         Map<String, ?> pPlayas = prefPlayas.getAll();
         Map<String, ?> pCamaras = prefCamaras.getAll();
-        Log.d(TAG,"Numero de playas en suscripción:  "+pPlayas.size());
-        Log.d(TAG,"Numero de cámaras en suscripción:  "+pCamaras.size());
+        Log.d(TAG,"Numero de playas disponibles:  "+pPlayas.size());
+        Log.d(TAG,"Numero de cámaras disponibles:  "+pCamaras.size());
         String playaS="";
         for (String key : pPlayas.keySet()) {
             playaS = playaS.concat(key+" ");
@@ -86,6 +87,7 @@ public class Suscripciones extends AppCompatActivity {
                         elegidas.add(e);
                     }
                 }
+                Collections.sort(elegidas);
                 ArrayAdapter<String> adapter1 = new ArrayAdapter<>(Suscripciones.this, R.layout.support_simple_spinner_dropdown_item,elegidas);
                 spinnerCamaras.setAdapter(adapter1);
             }
@@ -94,8 +96,6 @@ public class Suscripciones extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
         findViewById(R.id.btn_subscribe).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +105,6 @@ public class Suscripciones extends AppCompatActivity {
                 SharedPreferences.Editor Obj_Editor = preferences.edit();
                 Obj_Editor.putString(topicAltas,"1");
                 Obj_Editor.apply();
-                Log.d(TAG, "Cámara nueva");
                 Toast.makeText(getApplicationContext(),"Suscrito a "+topicAltas,Toast.LENGTH_LONG).show();
             }
         });

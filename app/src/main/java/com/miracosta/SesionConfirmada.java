@@ -64,7 +64,8 @@ public class SesionConfirmada extends AppCompatActivity {
         btn_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                actualizar();
+                startActivity(new Intent(SesionConfirmada.this, Update.class));
+                finish();
             }
         });
     }
@@ -76,44 +77,4 @@ public class SesionConfirmada extends AppCompatActivity {
         }
 
     }
-    public void actualizar(){
-        //Actualizar playas y camaras
-        SharedPreferences prefPlayas = getSharedPreferences("playas", Context.MODE_PRIVATE);
-        SharedPreferences prefCamaras = getSharedPreferences("camaras", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor EditorPlayas = prefPlayas.edit();
-        final SharedPreferences.Editor EditorCamaras = prefCamaras.edit();
-        EditorPlayas.clear();
-        EditorPlayas.apply();
-        EditorCamaras.clear();
-        EditorCamaras.apply();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("camaras")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String playa = document.getData().get("playa").toString();
-                                EditorPlayas.putString(playa,"1");
-                                EditorPlayas.apply();
-                                String sector = document.getData().get("sector").toString();
-                                String result = playa+"_"+sector;
-                                EditorCamaras.putString(result,"1");
-                                EditorCamaras.apply();
-                                Log.d(TAG, result);
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        //Actualizar fotos de playas
-        //Actualizar fotos de sectores
-        Toast.makeText(getApplicationContext(),"Actualización completa",Toast.LENGTH_LONG).show();
-    }
-
-
-
-
 }
