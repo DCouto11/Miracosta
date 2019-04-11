@@ -18,8 +18,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 
@@ -76,8 +74,6 @@ public class Suscripciones extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         Picasso.with(getApplicationContext())
                                 .load(uri)
-                                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                .networkPolicy(NetworkPolicy.NO_CACHE)
                                 .into(imagenPlaya);
                     }
                 });

@@ -3,17 +3,23 @@ package com.miracosta;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class VisorImagen extends Activity {
@@ -26,6 +32,9 @@ public class VisorImagen extends Activity {
     String url_alerta, sector_camara;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private static final String TAG = "Miracosta";
 
     public void onResume(){
         super.onResume();
@@ -41,7 +50,7 @@ public class VisorImagen extends Activity {
         swapImg = findViewById(R.id.btn_swapImg);
 
         String urlImagen = getIntent().getExtras().getString("imagenCaso");
-        String txtTitulo = getIntent().getExtras().getString("tituloCaso");
+        final String txtTitulo = getIntent().getExtras().getString("tituloCaso");
         String txtCuerpo = getIntent().getExtras().getString("bodyCaso");
 
         sector_camara = txtTitulo;
@@ -50,8 +59,6 @@ public class VisorImagen extends Activity {
         Picasso.with(getApplicationContext()).invalidate("");
         Picasso.with(this)
                 .load(urlImagen)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .networkPolicy(NetworkPolicy.NO_CACHE)
                 .into(imagen);
         vista = true;
 
@@ -61,6 +68,27 @@ public class VisorImagen extends Activity {
         visto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Map<String, Object> alerta = new HashMap<>();
+                alerta.put("fakePositive", false);
+                alerta.put("notPerson", false);
+                alerta.put("sector", txtTitulo);
+                alerta.put("timestamp",time);
+                alerta.put("url_imagen",url_alerta);
+                db.collection("detecciones").document(txtTitulo+"_"+time)
+                        .set(alerta)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
                 startActivity(new Intent(VisorImagen.this, MainActivity.class));
             }
         });
@@ -83,8 +111,6 @@ public class VisorImagen extends Activity {
                         public void onSuccess(Uri uri) {
                             Picasso.with(getApplicationContext())
                                     .load(uri)
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                    .networkPolicy(NetworkPolicy.NO_CACHE)
                                     .into(imagen);
                         }
                     });
@@ -93,11 +119,63 @@ public class VisorImagen extends Activity {
                 else{
                     Picasso.with(getApplicationContext())
                             .load(url_alerta)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
                             .into(imagen);
                     vista=true;
                 }
+            }
+        });
+        FakePositive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Map<String, Object> alerta = new HashMap<>();
+                alerta.put("fakePositive", true);
+                alerta.put("notPerson", false);
+                alerta.put("sector", txtTitulo);
+                alerta.put("timestamp",time);
+                alerta.put("url_imagen",url_alerta);
+                db.collection("detecciones").document(txtTitulo+"_"+time)
+                        .set(alerta)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
+                startActivity(new Intent(VisorImagen.this, MainActivity.class));
+            }
+        });
+        NotPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Map<String, Object> alerta = new HashMap<>();
+                alerta.put("fakePositive", false);
+                alerta.put("notPerson", true);
+                alerta.put("sector", txtTitulo);
+                alerta.put("timestamp",time);
+                alerta.put("url_imagen",url_alerta);
+                db.collection("detecciones").document(txtTitulo+"_"+time)
+                        .set(alerta)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
+                startActivity(new Intent(VisorImagen.this, MainActivity.class));
             }
         });
     }
